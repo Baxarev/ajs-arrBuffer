@@ -1,6 +1,7 @@
 export class Mathh {
   constructor() {
     this._stoned = false;
+    this.cell = null;
   }
   
   get stoned () {
@@ -8,21 +9,28 @@ export class Mathh {
   }
 
   set stoned(value) {
-    if (value === 'on') this._stoned = true;
-    if (value === 'of') this._stoned = false;
+    switch (value) {
+      case 'on':
+      this._stoned = true;
+      break;
+      case 'of':
+      this._stoned = false;
+      break;
+    }
   }
 
   get attack() {
-    return this._attack;
-  }
-
-  set attack(cell) {
-    if (cell > 1) {
+    if (this.cell > 1) {
       this._attack -= this._attack * +`0.${cell - 1}`;
     }
     if (this.stoned) {
       this._attack -= Math.log2(cell) * 5;
       console.log(this._attack)
     }
+    return this._attack;
+  }
+
+  set attack(cell) {
+    this.cell = cell
   }
 }
